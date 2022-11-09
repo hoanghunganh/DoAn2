@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width , initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/e7ab8ae43f.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yaldevi:wght@300;600;700&display=swap" rel="stylesheet">
+    <title>Cart</title>
+</head>
+
+<body>
+    <div id="dangnhap">
+        <span style="color:black" id="user"></span>
+        <input type="button" value="Log out" onclick="logout()" class="nut">
+        <input class="delete" type="button" value="xoa" onclick="xoa()">
+    </div>
+
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <a href="/index"><img src="img/logo.png" width="125px"></a>
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="/index">Home</a></li>
+                    <li><a href="/products">Products</a></li>
+                   
+                    <li><a href="/login">Account</a></li>
+
+                </ul>
+            </nav>
+            <a href="/cart"><img src="img/cart.png" width="30px" height="30px"></a>
+            <img src="img/menu.png" class="menu-icon" onclick="menutoggle()">
+
+        </div>
+    </div>
+    <!-----------cart items-------->
+    <div class="small-container cart-page">
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Name</th>
+                <th>Subtotal</th>
+
+            </tr>
+        </table>
+        <div id="result"></div>
+        <div style="text-align:right">
+            <div>
+                <p>Tổng tiền</p>
+                <b>$<b id="thanhtoan">0</b>.00</b>
+            </div>
+            <input class="buy" type="button" value="Mua" onclick="BuyProduct()">
+        </div>
+        <!--
+        <tr>
+            <td>
+                <div class="cart-info">
+                    <img src="img/buy-1.jpg" alt="">
+                
+                <div>
+                    <p>Red Printed T-Shirt</p>
+                    <small>Price : $50.00</small>
+                    <br>
+                    <a href="#">Remove</a>
+                </div>
+                </div>
+            </td>
+            <td><input type="number" value="1"></td>
+            <td>$50.00</td>
+        </tr>
+        <tr>
+            <td>
+                <div class="cart-info">
+                    <img src="img/buy-2.jpg" alt="">
+                
+                <div>
+                    <p>Black Shoes</p>
+                    <small>Price : $150.00</small>
+                    <br>
+                    <a href="#">Remove</a>
+                </div>
+                </div>
+            </td>
+            <td><input type="number" value="1"></td>
+            <td>$150.00</td>
+        </tr>
+        <tr>
+            <td>
+                <div class="cart-info">
+                    <img src="img/buy-3.jpg" alt="">
+                
+                <div>
+                    <p>Grey Pants</p>
+                    <small>Price : $75.00</small>
+                    <br>
+                    <a href="#">Remove</a>
+                </div>
+                </div>
+            </td>
+            <td><input type="number" value="1"></td>
+            <td>$75.00</td>
+        </tr>
+    </table>
+
+<div class="total-price">
+
+    <table>
+        <tr>
+            <td>Subtotal</td>
+            <td>$275.00</td>
+
+        </tr>
+        <tr>
+            <td>Tax</td>
+            <td>$75.00</td>
+
+        </tr>
+        <tr>
+            <td>Total</td>
+            <td>$275.00</td>
+
+        </tr>
+    </table>
+</div>
+-->
+    </div>
+
+    <!-----------Footer-------->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download Our App</h3>
+                    <p>Download App for Android and Ios mobile phone.</p>
+                    <div class="app-logo">
+                        <img src="img/play-store.png">
+                        <img src="img/app-store.png">
+                    </div>
+                </div>
+                <div class="footer-col-2">
+                    <img src="img/logo-white.png">
+                    <p>Our Purpose Is To Sustainably Make The Pleasure And Benefits Of Sports Accessible To The Many.
+                    </p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog Post</li>
+                        <li>Return Policy</li>
+                        <li>Join Affiliate</li>
+
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Follow us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                        <li>Instagram</li>
+                        <li>Youtube</li>
+
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2021 <br> Điền Giang - Hoàng Hùng Anh</p>
+        </div>
+    </div>
+    <!----------Js for menu ------------>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            loadshopping();
+        })
+    </script>
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "200px";
+            }
+            else {
+                MenuItems.style.maxHeight = "0px";
+            }
+        }
+    </script>
+    <script>
+        var user = localStorage.getItem("user");
+        if (user == null || user == undefined || user === "") {
+            $("#user").html("Bạn Chưa Đăng Nhập");
+        }
+        else {
+            var objUser = JSON.parse(user);
+            $("#user").html("Xin Chào : " + objUser.name);
+        }
+        ;
+        function logout() {
+            localStorage.removeItem("user")
+            window.location.href = "/login"
+        }
+        function loadshopping() {
+                if (localStorage.getItem("shoppingcart") == "[]" || localStorage.getItem("shoppingcart") == undefined ) {
+                    $('#result').html('Vui lòng chọn sản phẩm');
+                }
+                else {
+                    $.post("http://localhost:4000/getshoppingcart", {
+                        arrid: localStorage.getItem("shoppingcart").replace('[', '(').replace(']', ')')
+                    }, function (data, status) {
+                        $('#result').html(data);
+                        TongTien()
+                    });
+                }
+            }
+        function xoa() {
+            localStorage.removeItem("shoppingcart")
+        }
+        function TongTien(){
+            var arrSP = [];
+            tongtien = 0;
+
+            $(".product").toArray().forEach(item => {
+        tongtien += $(item).attr("price") * $(item).find(".soluong").val();
+      });
+      $('#thanhtoan').html(tongtien);
+        }
+        function BuyProduct() {
+            var arrProduct = $(".product").toArray();
+            var arrSP = [];
+            arrProduct.forEach(item => {
+                arrSP.push({
+                    MaSP: $(item).attr('productId'),
+                    SoLuong: $(item).find('.soluong').val(),
+                    GiaBan: $(item).attr('price')
+                });
+            });
+            $.post("http://localhost:4000/BuyProduct", {
+                MaKH:JSON.parse(localStorage.getItem("user")).Id,
+                arrSP: arrSP
+            }, function (data, status) {
+                alert("Thành Công")
+            });
+        }
+        
+        function onDeleteProduct(productId){
+            var shoppingCard = JSON.parse(localStorage.getItem("shoppingcart"));
+            var shoppingCard2 = [];
+            shoppingCard.forEach((item)=>{
+               if(item !== productId){
+                shoppingCard2.push(item);
+               }
+            });
+            localStorage.setItem("shoppingcart",JSON.stringify(shoppingCard2));
+            loadshopping();
+        }
+    </script>
+
+</body>
+
+</html>

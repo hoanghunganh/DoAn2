@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width , initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/e7ab8ae43f.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yaldevi:wght@300;600;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>  
+       
+       function loadHoaDon(){
+        $.post("/getHoaDon", {
+            }, function (data, status) {
+                console.log(data);
+                var sp = "<table border='1'><tr><th>Mã HD</th><th>Mã KH</th><th>Mã SP</th><th>Số Lượng</th><th>Giá Bán</th><th></th></tr>content<table>";
+                var tmp = "";
+                data.forEach(item =>{
+                    tmp += `<tr><td>${item.MaHD}</td><td>${item.MaKH}</td><td>${item.MaSP}</td><td>${item.SoLuong}</td><td>${item.GiaBan}</td><td><input type="button" value="Sửa" onclick="onEditHoaDon('${item.MaHD}','${item.MaSP}','${item.SoLuong}','${item.GiaBan}')"/><input type="button" value="Xóa" onclick="onDeleteHoaDon('${item.MaHD}','${item.MaSP}')"/></td></tr>`;
+                });
+                sp = sp.replace("content",tmp)
+                $("#content").html(sp);
+
+            });
+       }
+       function onEditHoaDon(MaHD,MaSP,SoLuong,GiaBan){
+            $("#MaHD").val(MaHD);
+            $("#MaSP").val(MaSP);
+            $("#SoLuong").val(SoLuong);
+            $("#GiaBan").val(GiaBan);
+       }
+       function onDeleteHoaDon(MaHD,MaSP){
+            $.post("/deleteHoaDon", {
+                MaHD: MaHD,
+                MaSP: MaSP
+            }, function (data, status) {
+                loadHoaDon();
+            });
+        }
+        function onUpdateHoaDon(){
+            $.post("/updateHoaDon", {
+                MaHD:$("#MaHD").val(),
+                MaSP:$("#MaSP").val(),
+                SoLuong: $("#SoLuong").val(),
+                GiaBan: $("#GiaBan").val(),
+            }, function (data, status) {
+                loadHoaDon();
+            });
+        }
+
+
+       function loadUsers(){
+        $.post("/getUsers", {
+            }, function (data, status) {
+                console.log(data);
+                var sp = "<table border='1'><tr><th>Id</th><th>Name</th><th>Password</th><th>Email</th><th>Phone Number</th><th></th></tr>content<table>";
+                var tmp = "";
+                data.forEach(item =>{
+                    tmp += `<tr><td>${item.Id}</td><td>${item.name}</td><td>${item.pass}</td><td>${item.email}</td><td>${item.sdt}</td><td><input type="button" value="Sửa" onclick="onEditUsers('${item.Id}','${item.name}','${item.pass}','${item.email}','${item.sdt}')"/><input type="button" value="Xóa" onclick="onDeleteUsers('${item.Id}')"/></td></tr>`;
+                });
+                sp = sp.replace("content",tmp)
+                $("#content").html(sp);
+
+            });
+       }
+       function onEditUsers(Id,name,pass,email,sdt){
+            $("#Username").val(name);
+            $("#Password").val(pass);
+            $("#Email").val(email);
+            $("#Sdt").val(sdt);
+            $("#UserId").val(Id);
+       }
+       function onDeleteUsers(Id){
+            $.post("/deleteUsers", {
+                UserId: Id,
+            }, function (data, status) {
+                loadUsers();
+            });
+        }
+        function onUpdateUsers(){
+            $.post("/updateUsers", {
+                Name:$("#Username").val(),
+                Pass:$("#Password").val(),
+                Email:$("#Email").val(),
+                Sdt:$("#Sdt").val(),
+                UserId:$("#UserId").val(),
+            }, function (data, status) {
+                loadUsers();
+            });
+        }
+
+
+        function loadProduct(){
+            $.post("/getProduct", {
+                }, function (data, status) {
+                    console.log(data);
+                    var sp = "<table border='1'><tr><th>Id</th><th></th><th>Name</th><th>Price</th><th></th></tr>content<table>"; 
+                    var tmp = "";    
+                    data.forEach(item=>{
+                        tmp += `<tr><td>${item.Id}</td><td><img width="100" src="/img/${item.ProductImage}" /></td><td>${item.ProductName}</td><td>${item.ProductPrice}</td><td><input type="button" value="Sửa" onclick="onEdit('${item.Id}','${item.ProductName}','${item.ProductPrice}')"/><input type="button" value="Xóa" onclick="onDelete('${item.Id}')"/></td></tr>`;
+                    });                
+                    sp = sp.replace("content",tmp)
+                    $("#content").html(sp);
+                });
+        }
+
+       function onEdit(productId, ProductName, ProductPrice){
+            //alert(productId);
+            $("#productName").val(ProductName);
+            $("#productPrice").val(ProductPrice);
+            $("#productId").val(productId);
+       }
+ 
+       function onDelete(productId){
+            $.post("/deleteProduct", {
+                Id: productId,
+            }, function (data, status) {
+                loadProduct();
+            });
+        }
+ 
+        function onUpdate(){
+            $.post("/updateProduct", {
+                ProductName:$("#productName").val(),
+                ProductPrice:$("#productPrice").val(),
+                Id:$("#productId").val(),
+            }, function (data, status) {
+                loadProduct();
+            });
+        }
+ 
+    </script>
+ 
+</head>
+ 
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="/index"><img src="img/logo.png" width="125px"></a>
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a href="/index">Home</a></li>
+                        <li><a href="/products">Products</a></li>
+                      
+                        <li><a href="/login">Account</a></li>
+        
+                    </ul>
+                </nav>
+                <a href="/cart"><img src="img/cart.png" width="30px" height="30px"></a>
+                <img src="img/menu.png" class="menu-icon" onclick="menutoggle()">
+    
+            </div>
+            </div>
+        </div>
+
+    
+<div id="Admin">
+    <h1>Admin Page</h1><br>
+    <div id="EditProducts">
+        <p>Products</p>
+        <input type="text" id="productName"/><br>
+        <input type="text" id="productPrice"/><br>
+        <input type="hidden" id="productId" />
+        <input type="button" value="Update" onclick="onUpdate()"/>  
+    </div>
+    <div id="EditUsers">
+        <p>Users</p>
+        <input type="text" id="Username"/><br>
+        <input type="text" id="Password"/><br>
+        <input type="text" id="Email"/><br>
+        <input type="text" id="Sdt"/><br>
+        <input type="hidden" id="UserId"/>
+        <input type="button" value="Cập nhật" onclick="onUpdateUsers()"/>  
+    </div>
+    <div id="EditHoaDon">
+        <p>Hóa Đơn</p>
+        <input type="text" id="SoLuong"/><br>
+        <input type="text" id="GiaBan"/><br>
+        <input type="hidden" id="MaSP"/>
+        <input type="hidden" id="MaHD" />
+        <input type="button" value="Update" onclick="onUpdateHoaDon()"/>  
+    </div>
+    
+</div>
+ 
+  
+    <table border="1" width="100%">
+        <tr>
+            <td style="width:200px;vertical-align: top;" >
+                <a style="text-decoration: underline;cursor: pointer;" onclick="loadProduct()">Sản Phẩm</a><br>
+                <a style="text-decoration: underline;cursor: pointer;" onclick="loadHoaDon()">Đơn Hàng</a><br>
+                <a style="text-decoration: underline;cursor: pointer;" onclick="loadUsers()">Khách Hàng</a><br>
+            </td>
+            <td>
+                <div id="content"></div>
+            </td>
+        </tr>
+    </table>
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download Our App</h3>
+                    <p>Download App for Android and Ios mobile phone.</p>
+                    <div class="app-logo">
+                        <img src="img/play-store.png">
+                        <img src="img/app-store.png">
+                    </div>
+                </div>
+                <div class="footer-col-2">
+                    <img src="img/logo-white.png">
+                    <p>Our Purpose Is To Sustainably Make The Pleasure And Benefits Of Sports Accessible To The Many.</p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog Post</li>
+                        <li>Return Policy</li>
+                        <li>Join Affiliate</li>
+                        
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Follow us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                        <li>Instagram</li>
+                        <li>Youtube</li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2021 <br> Điền Giang - Hoàng Hùng Anh</p>
+        </div>
+    </div>
+</body>
+ 
+</html>
