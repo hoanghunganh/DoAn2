@@ -306,11 +306,21 @@ ul{
 .row-2{
     justify-content: space-between;
     margin: 100px auto 50px;
-    background: radial-gradient(lightgrey,#ffd6d6);
+    background: radial-gradient(lightgrey);
     font-weight: bold;
     -webkit-text-stroke: 1px #000;
 }
-    
+.row-2 a{
+    width: 70px;
+    text-align: center;
+}
+.row-2 a:hover{
+ transform: translateY(-5px);
+ transition: 0.5s;
+ background-color: #ff523b;
+ border-radius: 20px;
+ color: white;
+}    
 
 select{
     border: 1px solid #ff523b;
